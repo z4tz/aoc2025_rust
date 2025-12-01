@@ -1,5 +1,5 @@
 use std::fs;
-use std::time::Instant;
+use std::time::{Duration, Instant};
 use std::env::var;
 
 use reqwest::blocking::Client;
@@ -28,7 +28,7 @@ pub fn get_input(day: u32) -> Option<String> {
 }
 
 fn download_input(day: u32) -> Option<String> {
-    let url = format!("https://adventofcode.com/20024/day/{}/input", day);
+    let url = format!("https://adventofcode.com/2025/day/{}/input", day);
     let session = var("AOC2025-SESSION").expect("AOC2025-SESSION must be set");
     let mut headers = HeaderMap::new();
     headers.insert(COOKIE, format!("session={}", session).parse().unwrap());
@@ -53,16 +53,25 @@ fn download_input(day: u32) -> Option<String> {
 }
 
 pub fn time_solutions(functions: &[fn(&str) -> String], input: Option<String>) {
-    let start = Instant::now();
-    match &input {
-        Some(input) => {
+    match (&input, functions.len()) {
+        (None, _)    => {println!("No input available")}
+        (Some(_), 0) => {println!("No solution found")}
+        (Some(input), 1) => {
+            let part_start = Instant::now();
+            println! ("Answers for both parts: {}", functions.first().unwrap()(input));
+            let elapsed = part_start.elapsed();
+            println ! ("Total time for day: {:?}\n", elapsed);
+        }
+        (Some(input), _) => {  // for 2 (or more?) solutions
+            let mut total_time = Duration::new(0,0);
             functions.iter().enumerate().for_each(| (index, function) | {
                 let part_start = Instant::now();
                 println! ("Part {} answer: {}", index + 1, function(input));
-                println ! ("Time for part: {:?}\n", part_start.elapsed());
+                let elapsed = part_start.elapsed();
+                println ! ("Time for part: {:?}\n", elapsed);
+                total_time += elapsed;
             });
+            println!("Time for all parts {:?}", total_time);
         }
-        None => {println!("No input found")}
     }
-    println!("Time for all parts {:?}", start.elapsed());
 }

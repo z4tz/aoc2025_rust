@@ -21,7 +21,7 @@ fn run_day(day: u32) {
             time_solutions(&solutions, get_input(day));
             println!("-------------------------------------------------------\n");
         }
-        None => {println!("No solutions found for day {day}");}
+        None => {println!("Invalid day selected: {day}");}
     }
 
 }
