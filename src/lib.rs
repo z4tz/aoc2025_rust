@@ -3,8 +3,7 @@ use std::time::{Duration, Instant};
 use std::env::var;
 
 use reqwest::blocking::Client;
-use reqwest::header::COOKIE;
-use reqwest::header::HeaderMap;
+use reqwest::header::{HeaderMap, COOKIE};
 use reqwest::StatusCode;
 
 pub fn get_input(day: u32) -> Option<String> {
@@ -66,9 +65,9 @@ pub fn time_solutions(functions: &[fn(&str) -> String], input: Option<String>) {
             let mut total_time = Duration::new(0,0);
             functions.iter().enumerate().for_each(| (index, function) | {
                 let part_start = Instant::now();
-                println! ("Part {} answer: {}", index + 1, function(input));
+                println!("Part {} answer: {}", index + 1, function(input));
                 let elapsed = part_start.elapsed();
-                println ! ("Time for part: {:?}\n", elapsed);
+                println!("Time for part: {:?}", elapsed);
                 total_time += elapsed;
             });
             println!("Time for all parts {:?}", total_time);

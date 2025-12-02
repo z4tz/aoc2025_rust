@@ -4,12 +4,12 @@ mod days;
 
 
 fn main() {
-    run_day(1);
+    run_day(2);
     //run_all();
 }
 
 fn run_all() {
-    for day in 1..21 {
+    for day in 1..=12 {
         run_day(day);
     }
 }
@@ -29,7 +29,7 @@ fn run_day(day: u32) {
 fn get_day_solutions(day: u32) -> Option<Vec<fn(&str) -> String>> {
     match day {
         1 => Some(days::day01::get_solutions()),
-        // 2 => Some(days::day02::get_solutions()),
+        2 => Some(days::day02::get_solutions()),
         // 3 => Some(days::day03::get_solutions()),
         // 4 => Some(days::day04::get_solutions()),
         // 5 => Some(days::day05::get_solutions()),
