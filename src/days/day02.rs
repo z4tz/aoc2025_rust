@@ -37,7 +37,7 @@ fn part2(input: &str) -> String {
 }
 
 fn parse_input(input: &str) -> Vec<(i64, i64)> {
-    input.split(',').map(|s| {
+    input.trim().split(',').map(|s| {
         let (first, second) = s.split_once('-').unwrap();
         (first.parse::<i64>().unwrap(), second.parse::<i64>().unwrap())
     }).collect()

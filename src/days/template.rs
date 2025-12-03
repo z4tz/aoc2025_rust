@@ -1,5 +1,5 @@
-pub fn get_solutions() -> &[fn(&str) -> String] {
-    [part1, part2]
+pub fn get_solutions() -> Vec<fn(&str) -> String> {
+    vec![part1, part2]
 }
 
 fn part1(input: &str) -> String {
