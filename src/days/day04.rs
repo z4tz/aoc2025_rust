@@ -15,20 +15,20 @@ fn part1(input: &str) -> String {
 fn part2(input: &str) -> String {
     let mut array = parse_input(input);
     let mut forkliftable = 0;
-    let mut move_found = true;
-    while move_found {
-        let mut after_move: Array2<usize> = array.clone();
-        move_found = false;
+    loop {
+        let mut to_remove = vec![];
         for (index, window) in array.windows((3,3)).into_iter().enumerate() {
             if window[[1,1]] == 1 && window.sum() < 5 {
                 let x = index % (array.dim().0-2) + 1;
                 let y = index / (array.dim().0-2) + 1;
-                after_move[[y,x]] = 0;
-                forkliftable += 1;
-                move_found = true;
+                to_remove.push((y, x));
             }
         }
-        array = after_move;
+        if to_remove.is_empty() {break}
+        forkliftable += to_remove.len();
+        for coordinate in to_remove {
+            array[coordinate] = 0;
+        }
     }
     forkliftable.to_string()
 }
