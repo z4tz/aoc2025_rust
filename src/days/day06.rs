@@ -34,14 +34,11 @@ fn part2(input: &str) -> String {
 
 fn parse_alternative( input: &str ) -> (Vec<Vec<usize>>, Vec<Operation>) {
     let mut columns = vec![];
-    let mut operations = parse_operators(input.lines().last().unwrap());
+    let operations = parse_operators(input.lines().last().unwrap());
 
-    let mut char_columns = vec![];
+    let mut char_columns = vec![vec![]; input.lines().nth(0).unwrap().len()];
     for line in input.lines().rev().skip(1) {
         for (i, c) in line.chars().enumerate() {
-            if char_columns.len() <= i {
-                char_columns.push(vec![]);
-            }
             if c.is_numeric() {
                 char_columns[i].push(c);
             }
@@ -64,7 +61,7 @@ columns.push(new_column);
 
 fn parse_input(input: &str) -> (Vec<Vec<usize>>, Vec<Operation>) {
     let mut columns = vec![];
-    let mut operations = parse_operators(input.lines().last().unwrap());
+    let operations = parse_operators(input.lines().last().unwrap());
 
     for line in input.lines().rev().skip(1) {
         for (i, part) in line.split_ascii_whitespace().enumerate() {

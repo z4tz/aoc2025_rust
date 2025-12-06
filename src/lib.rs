@@ -56,21 +56,32 @@ pub fn time_solutions(functions: &[fn(&str) -> String], input: Option<String>) {
         (None, _)    => {println!("No input available")}
         (Some(_), 0) => {println!("No solution found")}
         (Some(input), 1) => {
-            let part_start = Instant::now();
-            println! ("Answers for both parts: {}", functions.first().unwrap()(input));
-            let elapsed = part_start.elapsed();
-            println ! ("Total time for day: {:?}\n", elapsed);
+            let (avg_time, answer) = average_time(functions.first().unwrap(), input);
+            println! ("Answers for both parts: {}", answer);
+            println ! ("Total time for day: {:?}\n", avg_time);
         }
         (Some(input), _) => {  // for 2 (or more?) solutions
             let mut total_time = Duration::new(0,0);
             functions.iter().enumerate().for_each(| (index, function) | {
-                let part_start = Instant::now();
-                println!("Part {} answer: {}", index + 1, function(input));
-                let elapsed = part_start.elapsed();
-                println!("Time for part: {:?}", elapsed);
-                total_time += elapsed;
+                let (part_time, answer) = average_time(function, input);
+                println!("Part {} answer: {}", index + 1, answer);
+                println!("Time for part: {:?}", part_time);
+                total_time += part_time;
             });
             println!("Time for all parts {:?}", total_time);
         }
     }
+}
+
+fn average_time(function : &fn(&str) -> String, input: &str) -> (Duration, String ) {
+    let mut count = 0;
+    let mut answer = String::new();
+    let time = Instant::now();
+    while Instant::now() - time < Duration::from_millis(500) {
+        answer = function(input);
+        count += 1;
+
+    }
+
+    ((Instant::now() - time)/count , answer)
 }
