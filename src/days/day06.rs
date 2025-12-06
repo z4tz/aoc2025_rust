@@ -40,7 +40,7 @@ fn parse_alternative( input: &str ) -> (Vec<Vec<usize>>, Vec<Operation>) {
     for line in input.lines().rev().skip(1) {
         for (i, c) in line.chars().enumerate() {
             if c.is_numeric() {
-                char_columns[i].push(c);
+                char_columns[i].push(c.to_digit(10).unwrap() as usize);
             }
         }
     }
@@ -52,7 +52,7 @@ fn parse_alternative( input: &str ) -> (Vec<Vec<usize>>, Vec<Operation>) {
             new_column = vec![];
         }
         else {
-            new_column.push(char_column.iter().rev().collect::<String>().parse::<usize>().unwrap());
+            new_column.push(char_column.iter().enumerate().rev().fold(0, |acc, (i, num)| {10_usize.pow(i as u32) * num + acc}));
         }
     }
 columns.push(new_column);
