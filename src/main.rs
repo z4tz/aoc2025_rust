@@ -4,18 +4,18 @@ mod days;
 
 
 fn main() {
-    run_day(8);
-    //run_day_once(8)
-    //run_all();
+    //run_once(9);
+    time_day(9);
+    //time_all();
 }
 
-fn run_all() {
+fn time_all() {
     for day in 1..=12 {
-        run_day(day);
+        time_day(day);
     }
 }
 
-fn run_day(day: u32) {
+fn time_day(day: u32) {
     match get_day_solutions(day) {
         Some(solutions) => {
             println!("Solving day {day}");
@@ -26,7 +26,7 @@ fn run_day(day: u32) {
     }
 }
 
-fn run_day_once(day: u32) {
+fn run_once(day: u32) {
     match (get_day_solutions(day), get_input(day)) {
         (Some(solutions), Some(input)) => {
             println!("Solving day {day}");
@@ -49,7 +49,7 @@ fn get_day_solutions(day: u32) -> Option<Vec<fn(&str) -> String>> {
         6 => Some(days::day06::get_solutions()),
         7 => Some(days::day07::get_solutions()),
         8 => Some(days::day08::get_solutions()),
-        // 9 => Some(days::day09::get_solutions()),
+        9 => Some(days::day09::get_solutions()),
         // 10 => Some(days::day10::get_solutions()),
         // 11 => Some(days::day11::get_solutions()),
         // 12 => Some(days::day12::get_solutions()),
