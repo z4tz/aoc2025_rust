@@ -4,8 +4,8 @@ mod days;
 
 
 fn main() {
-    //run_once(9);
-    time_day(9);
+    //run_once(11);
+    time_day(11);
     //time_all();
 }
 
@@ -31,7 +31,7 @@ fn run_once(day: u32) {
         (Some(solutions), Some(input)) => {
             println!("Solving day {day}");
             for (i, solution) in solutions.iter().enumerate() {
-                println!("Part {i}: {}", solution(&input));
+                println!("Part {}: {}", i+1, solution(&input));
             }
         }
         _ => println!("Missing solution or input for day: {day}"),
@@ -50,8 +50,8 @@ fn get_day_solutions(day: u32) -> Option<Vec<fn(&str) -> String>> {
         7 => Some(days::day07::get_solutions()),
         8 => Some(days::day08::get_solutions()),
         9 => Some(days::day09::get_solutions()),
-        // 10 => Some(days::day10::get_solutions()),
-        // 11 => Some(days::day11::get_solutions()),
+        10 => Some(days::day10::get_solutions()),
+        11 => Some(days::day11::get_solutions()),
         // 12 => Some(days::day12::get_solutions()),
         _ => None,
 

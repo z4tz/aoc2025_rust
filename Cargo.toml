@@ -6,3 +6,4 @@ edition = "2024"
 [dependencies]
 reqwest = { version = "0.12.24", features = ["blocking"] }
 ndarray = { version = "0.17.1"}
+itertools = "0.14.0"
