@@ -24,14 +24,14 @@ fn part1(input: &str) -> String {
 fn part2(input: &str) -> String {
     let devices = parse_input(input);
     let mut memoization = HashMap::new();
-    let total = valid_connections("svr".to_string(),Visited::Nether, &devices, &mut memoization);
+    let total = valid_connections("svr".to_string(),Visited::Neither, &devices, &mut memoization);
 
     total.to_string()
 }
 
 #[derive(Copy, Clone, Eq, PartialEq, Hash)]
 enum Visited {
-    Nether,
+    Neither,
     DAC,
     FFT,
     Both
@@ -51,9 +51,9 @@ fn valid_connections(device: String, visited: Visited, devices: &HashMap<String,
     let mut total = 0;
     for next_device in &devices[&device] {
         let next_visited = match (visited, next_device.as_str()) {
-            (Visited::Nether, "fft") => Visited::FFT,
-            (Visited::Nether, "dac") => Visited::DAC,
-            (Visited::Nether, _) => Visited::Nether,
+            (Visited::Neither, "fft") => Visited::FFT,
+            (Visited::Neither, "dac") => Visited::DAC,
+            (Visited::Neither, _) => Visited::Neither,
             (Visited::FFT, "dac") => Visited::Both,
             (Visited::FFT, _) => Visited::FFT,
             (Visited::DAC, "fft") => Visited::Both,
